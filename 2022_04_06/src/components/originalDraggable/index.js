@@ -6,11 +6,11 @@ import { CustomForm, DragContainer, ButtonContainer } from "./style";
 
 // props 라고 가정
 const items = [
-  { id: "1", orderNum: "1", content: `item 1`, text: "" },
-  { id: "2", orderNum: "2", content: `item 2`, text: "" },
-  { id: "3", orderNum: "3", content: `item 3`, text: "" },
-  { id: "4", orderNum: "4", content: `item 4`, text: "" },
-  { id: "5", orderNum: "5", content: `item 5`, text: "" },
+  { order: "1", content: `item 1`, text: "" },
+  { order: "2", content: `item 2`, text: "" },
+  { order: "3", content: `item 3`, text: "" },
+  { order: "4", content: `item 4`, text: "" },
+  { order: "5", content: `item 5`, text: "" },
 ];
 
 const OriginalDraggable = () => {
@@ -18,7 +18,6 @@ const OriginalDraggable = () => {
     control,
     register,
     handleSubmit,
-    watch,
     formState: { isSubmitting },
   } = useForm({ defaultValues: { dragItems: items } });
 
@@ -61,7 +60,7 @@ const OriginalDraggable = () => {
           type="button"
           onClick={() =>
             append({
-              orderNum: (fields.length + 1).toString(),
+              order: (fields.length + 1).toString(),
               content: `item ${fields.length + 1}`,
               text: "",
             })
@@ -103,10 +102,10 @@ const FiledList = React.memo(function FiledList({
 }) {
   return fields.map((field, index) => {
     return (
-      <Draggable draggableId={field.id} index={index} key={field.id}>
+      <Draggable draggableId={field.order} index={index} key={field.order}>
         {(provided, snapshot) => (
           <div
-            key={field.id}
+            key={field.order}
             className="flex"
             ref={provided.innerRef}
             {...provided.draggableProps}
@@ -123,7 +122,7 @@ const FiledList = React.memo(function FiledList({
               {field.content}
             </span>
             <input
-              key={`${field.id}`}
+              key={`${field.order}`}
               name={`dragItems[${index}].text`}
               ref={register()}
               type="text"
