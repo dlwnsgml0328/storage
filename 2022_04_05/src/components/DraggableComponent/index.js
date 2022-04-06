@@ -1,88 +1,73 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { useForm, useFieldArray } from "react-hook-form";
 
 import { CustomForm, DragContainer, ButtonContainer } from "./style";
 
 const DraggableComponent = () => {
-  const [items, setItems] = useState([
+  const [items] = useState([
     { id: "1", content: `item 1`, text: "" },
     { id: "2", content: `item 2`, text: "" },
     { id: "3", content: `item 3`, text: "" },
     { id: "4", content: `item 4`, text: "" },
     { id: "5", content: `item 5`, text: "" },
   ]);
-  const cnt = useRef(6);
+
+  // useForm
+
+  const {
+    control,
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting },
+  } = useForm({ defaultValues: { dragItems: items } });
+
+  // useFieldArray
+  const { fields, append, remove, move } = useFieldArray({
+    control,
+    name: "dragItems",
+  });
 
   useEffect(() => {
-    console.log("items:", items);
-  }, [items]);
+    console.log("fields are changed: ", fields);
+  }, [fields]);
 
   const onDragEnd = (result) => {
-    console.log("result: ", result);
-    console.log("result.destination: ", result.destination);
     if (!result.destination) {
       return;
     }
+    if (result.destination.index === result.source.index) {
+      return;
+    }
 
-    const arr = reorder(items, result.source.index, result.destination.index);
-    setItems(arr);
+    move(result.source.index, result.destination.index);
   };
 
-  const reorder = (list, startIndex, endIndex) => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-
-    return result;
-  };
-
-  const onAdd = useCallback(() => {
-    let arr = [];
-
-    arr = [...items];
-
-    arr.push({
-      id: cnt.current.toString(),
-      content: "item " + cnt.current.toString(),
+  const onAdd2 = () => {
+    append({
+      id: fields.id + 1 + "",
+      content: `item ${fields.length + 1}`,
+      text: "",
     });
-
-    setItems(arr);
-    cnt.current += 1;
-  }, [items, cnt]);
-
-  const onChange = useCallback(
-    (e, idx) => {
-      console.log("e: ", e.target.value);
-      console.log("idx: ", idx);
-      let states = [...items];
-      states.find((item) => item.id === idx).text = e.target.value;
-
-      setItems(states);
-    },
-    [items]
-  );
+  };
 
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      console.log("items: ", items);
+      console.log("fields: ", fields);
     },
-    [items]
+    [fields]
   );
 
-  const onFilter = useCallback(
-    (idx) => {
-      let arr = [...items];
-      arr.splice(idx, 1);
-      setItems(arr);
-    },
-    [items]
-  );
+  const onFilterInput = (index) => {
+    remove(index);
+  };
 
   return (
-    <CustomForm onSubmit={onSubmit}>
+    <CustomForm onSubmit={handleSubmit(onSubmit)}>
       <ButtonContainer>
-        <button type="button" onClick={onAdd}>
+        <button type="button" onClick={onAdd2} disabled={isSubmitting}>
           Add
         </button>
         <button type="button" onClick={onSubmit}>
@@ -92,37 +77,15 @@ const DraggableComponent = () => {
 
       <DragContainer>
         <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="droppable">
+          <Droppable droppableId="list">
             {(provided, snapshot) => (
               <div {...provided.droppableProps} ref={provided.innerRef}>
-                {items.map((item, index) => (
-                  <Draggable key={item.id} draggableId={item.id} index={index}>
-                    {(provided, snapshot) => (
-                      <div
-                        className="flex"
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                      >
-                        <span className="id">{item.id}</span>
-                        <span className="content" type="text">
-                          {item.content}
-                        </span>
-                        <input
-                          type="text"
-                          value={item.text}
-                          onChange={(e) => onChange(e, item.id)}
-                        />
-                        <span
-                          onClick={() => onFilter(index)}
-                          className="remove"
-                        >
-                          [X]
-                        </span>
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
+                <FieldList
+                  fields={fields}
+                  onFilterInput={onFilterInput}
+                  register={register}
+                  isSubmitting={isSubmitting}
+                />
                 {provided.placeholder}
               </div>
             )}
@@ -132,5 +95,45 @@ const DraggableComponent = () => {
     </CustomForm>
   );
 };
+
+const FieldList = React.memo(function FieldList({
+  fields,
+  onFilterInput,
+  register,
+  isSubmitting,
+}) {
+  console.log("register: ", register());
+  return fields.map((field, index) => (
+    <Draggable draggableId={`${field.id}`} index={index} key={`${field.id}`}>
+      {(provided, snapshot) => (
+        <div
+          className="flex"
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          <span name={`items[${index}].id`} className="id">
+            {index}
+          </span>
+          <span
+            name={`items[${index}].content`}
+            className="content"
+            type="text"
+          >
+            {field.content}
+          </span>
+          <input
+            name={`items[${index}].text`}
+            type="text"
+            defaultValue={field.text}
+          />
+          <span onClick={() => onFilterInput(index)} className="remove">
+            [X]
+          </span>
+        </div>
+      )}
+    </Draggable>
+  ));
+});
 
 export default DraggableComponent;
