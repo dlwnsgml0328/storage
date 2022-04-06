@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useForm, useFieldArray } from "react-hook-form";
 
-import { CustomForm, DragContainer, ButtonContainer } from "./style";
+import { DragContainer, ButtonContainer } from "./style";
 
 // props 라고 가정
 const items = [
@@ -19,32 +19,29 @@ const OriginalDraggable = () => {
     register,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm({ defaultValues: { dragItems: items } });
+  } = useForm({
+    defaultValues: { dragItems: items },
+    shouldUseNativeValidation: true,
+  });
 
   const { fields, append, remove, move } = useFieldArray({
     control,
     name: "dragItems",
   });
 
-  //   console.log("fields are: ", watch("dragItems"));
-  console.log("real fields are: ", fields);
+  const onSubmit = (data, e) => console.log("success: ", data, e);
+  const onError = (errors, e) => console.log("errors: ", errors, e);
 
   const onDragEnd = (result) => {
     if (!result.destination) {
       return;
     }
+    if (result.destination.index === result.source.index) {
+      return;
+    }
 
     move(result.source.index, result.destination.index);
   };
-
-  const onSubmit = useCallback(
-    (e, data) => {
-      e.preventDefault();
-      console.log("fields: ", fields);
-      console.log("result: ", data);
-    },
-    [fields]
-  );
 
   const onFilter2 = useCallback(
     (index) => {
@@ -54,28 +51,9 @@ const OriginalDraggable = () => {
   );
 
   return (
-    <CustomForm onSubmit={handleSubmit(onSubmit)}>
-      <ButtonContainer>
-        <button
-          type="button"
-          onClick={() =>
-            append({
-              order: (fields.length + 1).toString(),
-              content: `item ${fields.length + 1}`,
-              text: "",
-            })
-          }
-          disabled={isSubmitting}
-        >
-          Add
-        </button>
-        <button type="button" onClick={onSubmit}>
-          Submit
-        </button>
-      </ButtonContainer>
-
-      <DragContainer>
-        <DragDropContext onDragEnd={onDragEnd}>
+    <DragContainer>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <form onSubmit={() => console.log("submit")}>
           <Droppable droppableId="droppable">
             {(provided, snapshot) => (
               <div {...provided.droppableProps} ref={provided.innerRef}>
@@ -89,9 +67,28 @@ const OriginalDraggable = () => {
               </div>
             )}
           </Droppable>
-        </DragDropContext>
-      </DragContainer>
-    </CustomForm>
+
+          <ButtonContainer>
+            <button
+              type="button"
+              onClick={() =>
+                append({
+                  order: (fields.length + 1).toString(),
+                  content: `item ${fields.length + 1}`,
+                  text: "",
+                })
+              }
+              disabled={isSubmitting}
+            >
+              Add
+            </button>
+            <button type="button" onClick={handleSubmit(onSubmit, onError)}>
+              Submit
+            </button>
+          </ButtonContainer>
+        </form>
+      </DragDropContext>
+    </DragContainer>
   );
 };
 const FiledList = React.memo(function FiledList({
@@ -111,22 +108,35 @@ const FiledList = React.memo(function FiledList({
             {...provided.draggableProps}
             {...provided.dragHandleProps}
           >
-            <span name={`dragItems[${index}].id`} className="id">
-              {index}
-            </span>
-            <span
+            <input
+              name={`dragItems[${index}].order`}
+              ref={register()}
+              type="text"
+              className="id"
+              defaultValue={field.order}
+              readOnly
+            />
+
+            <input
               name={`dragItems[${index}].content`}
+              ref={register()}
               className="content"
               type="text"
-            >
-              {field.content}
-            </span>
+              defaultValue={field.content}
+              readOnly
+            />
             <input
               key={`${field.order}`}
               name={`dragItems[${index}].text`}
-              ref={register()}
+              ref={register({
+                maxLength: {
+                  value: 255,
+                  message: "title maximum 255",
+                },
+              })}
               type="text"
               defaultValue={field.text}
+              maxLength={255}
             />
             <span onClick={() => onFilter2(index)} className="remove">
               [X]
