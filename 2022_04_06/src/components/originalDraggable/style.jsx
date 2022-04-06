@@ -31,6 +31,28 @@ export const DragContainer = styled.div`
     margin-right: 1%;
   }
 
+  label {
+    cursor: pointer;
+  }
+
+  .content {
+    width: 5%;
+  }
+
+  .id {
+    width: 2%;
+  }
+
+  .input {
+    border: none;
+    cursor: default;
+    user-select: none;
+
+    :focus {
+      outline: none;
+    }
+  }
+
   .remove {
     margin-left: 2%;
     color: red;
