@@ -25,7 +25,7 @@ const OriginalDraggable = () => {
   });
 
   const [currentIdx, setCurrentIdx] = useState(-1);
-  const currentOrder = useRef(6);
+  const currentOrder = useRef(1);
   const watchFields = watch("dragItems");
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const OriginalDraggable = () => {
     move(result.source.index, result.destination.index);
   };
 
-  const onFilter2 = useCallback(
+  const onFilter = useCallback(
     (index) => {
       remove(index);
     },
@@ -75,7 +75,7 @@ const OriginalDraggable = () => {
                   fields={fields}
                   register={register}
                   isSubmitting={isSubmitting}
-                  onFilter2={onFilter2}
+                  onFilter={onFilter}
                   setCurrentIdx={setCurrentIdx}
                 />
                 {provided.placeholder}
@@ -110,7 +110,7 @@ const OriginalDraggable = () => {
 const FiledList = React.memo(function FiledList({
   fields,
   register,
-  onFilter2,
+  onFilter,
   isSubmitting,
   setCurrentIdx,
 }) {
@@ -160,7 +160,7 @@ const FiledList = React.memo(function FiledList({
                 maxLength={255}
               />
             </label>
-            <span onClick={() => onFilter2(index)} className="remove">
+            <span onClick={() => onFilter(index)} className="remove">
               [X]
             </span>
           </div>
