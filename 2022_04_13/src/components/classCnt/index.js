@@ -3,7 +3,10 @@ import React, { Component } from "react";
 class ClassCnt extends Component {
   constructor(props) {
     super(props);
+
+    this.initState = { job: "developer", name: "", age: "" };
     this.state = {
+      ...this.initState,
       age: 20,
       name: "junhee",
       hobby: "coding",
@@ -12,9 +15,8 @@ class ClassCnt extends Component {
 
   changeStage = () => {
     setTimeout(() => {
-      let data = { job: "developer" };
-      this.setState(data);
-    }, 3000);
+      this.setState({ hobby: "watching movie" });
+    }, 2000);
   };
 
   componentDidMount() {
@@ -24,10 +26,10 @@ class ClassCnt extends Component {
   render() {
     return (
       <div>
-        <p>{this.state.age}</p>
-        <p>{this.state.name}</p>
-        <p>{this.state.hobby}</p>
-        <p>{this.state.job && this.state.job}</p>
+        <p>age: {this.state.age}</p>
+        <p>name: {this.state.name}</p>
+        <p>hobby: {this.state.hobby}</p>
+        <p>job: {this.state.job && this.state.job}</p>
       </div>
     );
   }

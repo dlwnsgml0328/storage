@@ -15,10 +15,10 @@ const Count = () => {
   }, [obj]);
   return (
     <div className="App">
-      <p>{obj.age}</p>
-      <p>{obj.name}</p>
-      <p>{obj.hobby}</p>
-      <p>{obj.height && obj.height}</p>
+      <p>age: {obj.age}</p>
+      <p>name: {obj.name}</p>
+      <p>hobby: {obj.hobby}</p>
+      <p>height: {obj.height && obj.height}</p>
     </div>
   );
 };
