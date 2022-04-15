@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Audio1 = () => {
   const [audioError, setAudioError] = useState();
   const [audio, setAudio] = useState();
 
-  useEffect(() => {
-    console.log("audio is: ", audio);
-  }, [audio]);
+  // useEffect(() => {
+  //   console.log("audio is: ", audio);
+  // }, [audio]);
 
   // 1. load the audio in a user interaction
   const handleLoadClick = () => {
