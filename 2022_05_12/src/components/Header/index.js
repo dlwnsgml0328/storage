@@ -11,6 +11,9 @@ const Header = () => {
       <li>
         <Link to='/playground'>playground</Link>
       </li>
+      <li>
+        <Link to='typeground'>typeground</Link>
+      </li>
     </HeaderWrap>
   );
 };
