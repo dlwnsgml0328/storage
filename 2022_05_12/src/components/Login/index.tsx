@@ -19,8 +19,12 @@ const Login = ({ name }: IProps) => {
     }
   }, [user]);
 
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setValue(e.target.value);
+  };
+
   const onSubmit = useCallback(
-    (e: any) => {
+    (e: React.SyntheticEvent): void => {
       e.preventDefault();
       setUser(value);
       setValue('');
@@ -33,7 +37,7 @@ const Login = ({ name }: IProps) => {
 
       {user && <h3>{user} 님 어서오세요!</h3>}
       <form onSubmit={onSubmit}>
-        <input type='text' value={value} onChange={(e) => setValue(e.target.value)} />
+        <input type='text' value={value} onChange={onChange} />
 
         <button type='submit'>저장</button>
       </form>
