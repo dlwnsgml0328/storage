@@ -37,6 +37,14 @@ const LiveWrapper = styled.div`
       width: 100%;
     }
   }
+
+  .btn-group {
+    margin-top: 2%;
+
+    button {
+      margin-top: 0.5%;
+    }
+  }
 `;
 
 export default Live;
