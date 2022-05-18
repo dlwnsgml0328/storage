@@ -15,8 +15,8 @@ const Audio1 = () => {
     );
     _audio.load();
     _audio.autoplay = true;
-    _audio.loop = true;
     _audio.muted = true;
+    _audio.loop = true;
     _audio.addEventListener("canplaythrough", () => {
       _audio.muted = false;
       console.log("loaded audio", _audio);
@@ -25,12 +25,13 @@ const Audio1 = () => {
   };
 
   // 2. now you can play the audio on all subsequent events
-  const handleClick = async () => {
+  const handleClick = () => {
     setAudioError(undefined);
-    await new Promise((r) => setTimeout(r, 2000));
+
     audio &&
       audio.play().catch((e) => {
         setAudioError(e);
+        console.log(e.response); // not allowed 와 같은 것을 캐치해서 setTimeout 과 같은 호출 스케쥴링을 줘서 다시 한 번 요청을 보내고 정상적으로 동작하는지 확인해볼 것
       });
   };
 

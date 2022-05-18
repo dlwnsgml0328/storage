@@ -2,7 +2,7 @@ import React, { useCallback, useState, useEffect, useRef } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useForm, useFieldArray } from "react-hook-form";
 
-import { DragContainer, ButtonContainer } from "./style";
+import { DragContainer, ButtonContainer, ScriptModal } from "./style";
 
 // props 라고 가정
 const items = [];
@@ -24,6 +24,7 @@ const OriginalDraggable = () => {
     name: "dragItems",
   });
 
+  const [onModal, setOnModal] = useState(false);
   const [currentIdx, setCurrentIdx] = useState(-1);
   const currentOrder = useRef(1);
   const watchFields = watch("dragItems");
@@ -76,7 +77,10 @@ const OriginalDraggable = () => {
                   register={register}
                   isSubmitting={isSubmitting}
                   onFilter={onFilter}
+                  currentIdx={currentIdx}
                   setCurrentIdx={setCurrentIdx}
+                  onModal={onModal}
+                  setOnModal={setOnModal}
                 />
                 {provided.placeholder}
               </div>
@@ -113,6 +117,9 @@ const FiledList = React.memo(function FiledList({
   onFilter,
   isSubmitting,
   setCurrentIdx,
+  currentIdx,
+  onModal,
+  setOnModal,
 }) {
   return fields.map((field, index) => {
     return (
@@ -160,6 +167,32 @@ const FiledList = React.memo(function FiledList({
                 maxLength={255}
               />
             </label>
+
+            <ScriptModal modalOn={currentIdx === field.order && onModal}>
+              <span className="exit" onClick={() => setOnModal(false)}>
+                X
+              </span>
+              <div className="text_container">
+                <input
+                  name={`dragItems[${index}].scriptTitle`}
+                  ref={register()}
+                  type="text"
+                  defaultValue={field.scriptTitle}
+                  placeholder="script title"
+                />
+                <textarea
+                  name={`dragItems[${index}].scriptContent`}
+                  ref={register()}
+                  defaultValue={field.scriptContent}
+                  placeholder="script content"
+                />
+
+                <button type="button" onClick={() => setOnModal(false)}>
+                  save
+                </button>
+              </div>
+            </ScriptModal>
+
             <span onClick={() => onFilter(index)} className="remove">
               [X]
             </span>

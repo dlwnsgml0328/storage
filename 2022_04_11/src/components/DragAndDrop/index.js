@@ -33,7 +33,11 @@ const DragAndDrop = () => {
   const [onModal, setOnModal] = useState(false);
   const [currentIdx, setCurrentIdx] = useState(-1);
   const currentOrder = useRef(6);
+  const cnt = useRef(0);
   const watchFields = watch("dragItems");
+
+  console.log("re-rendering was increased: ", cnt.current);
+  cnt.current++;
 
   useEffect(() => {
     console.log("modal: ", onModal);

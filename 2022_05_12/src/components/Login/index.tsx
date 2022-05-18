@@ -24,7 +24,7 @@ const Login = ({ name }: IProps) => {
   };
 
   const onSubmit = useCallback(
-    (e: React.SyntheticEvent): void => {
+    (e: React.FormEvent<HTMLFormElement>): void => {
       e.preventDefault();
       setUser(value);
       setValue('');
