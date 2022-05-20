@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Header from './components/Header';
 import Main from './pages/Main';
+import MainCustom from './pages/MainCustom';
 
 function App() {
   return (
@@ -17,6 +18,10 @@ function App() {
 
       <Routes>
         <Route path='/main' element={<Main />} />
+      </Routes>
+
+      <Routes>
+        <Route path='/main_custom' element={<MainCustom />} />
       </Routes>
     </BrowserRouter>
   );

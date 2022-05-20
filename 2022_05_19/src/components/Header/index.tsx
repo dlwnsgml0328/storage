@@ -11,6 +11,10 @@ const Header = () => {
       <li>
         <Link to='/main'>Main</Link>
       </li>
+
+      <li>
+        <Link to='/main_custom'>Main Custom</Link>
+      </li>
     </HeaderWrap>
   );
 };

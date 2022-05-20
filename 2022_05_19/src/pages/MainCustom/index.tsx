@@ -1,29 +1,29 @@
 import styled from 'styled-components';
 
-const Main = () => {
+const MainCustom = () => {
   return (
     <MainWrapper>
-      <h3>Main 페이지입니다</h3>
+      <h3>Main Custom 페이지입니다</h3>
 
       <picture>
         {/* 안됨 */}
         <source
-          srcSet='https://eazel-io.s3.ap-northeast-2.amazonaws.com/uploads/immsi/a_400.webp'
+          srcSet='https://eazel-io.s3.ap-northeast-2.amazonaws.com/uploads/immsi/a_400.webp, https://eazel-io.s3.ap-northeast-2.amazonaws.com/uploads/immsi/a_800.webp 2x'
           media=' (max-width: 400px)'
           type='image/webp'
         />
         <source
-          srcSet='https://eazel-io.s3.ap-northeast-2.amazonaws.com/uploads/immsi/a_800.webp'
+          srcSet='https://eazel-io.s3.ap-northeast-2.amazonaws.com/uploads/immsi/a_800.webp, https://eazel-io.s3.ap-northeast-2.amazonaws.com/uploads/immsi/a_1600.webp 2x'
           media='(max-width: 800px)'
           type='image/webp'
         />
         <source
-          srcSet='https://eazel-io.s3.ap-northeast-2.amazonaws.com/uploads/immsi/a_1200.webp'
+          srcSet='https://eazel-io.s3.ap-northeast-2.amazonaws.com/uploads/immsi/a_1200.webp, https://eazel-io.s3.ap-northeast-2.amazonaws.com/uploads/immsi/a_2400.webp 2x'
           media=' (max-width: 1200px)'
           type='image/webp'
         />
         <source
-          srcSet='https://eazel-io.s3.ap-northeast-2.amazonaws.com/uploads/immsi/a_1600.webp'
+          srcSet='https://eazel-io.s3.ap-northeast-2.amazonaws.com/uploads/immsi/a_1600.webp, https://eazel-io.s3.ap-northeast-2.amazonaws.com/uploads/immsi/a.webp 2x'
           media='(max-width: 1600px)'
           type='image/webp'
         />
@@ -90,7 +90,7 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default MainCustom;
 
 const MainWrapper = styled.div`
   img {
