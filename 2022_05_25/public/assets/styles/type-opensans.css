@@ -1,0 +1,71 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,800');
+
+.type-opensans {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 100%; 
+    line-height: 2;
+    font-weight: 300;
+    letter-spacing: 0px;
+    text-transform: none;
+    font-style: normal;
+}
+.type-opensans p, .type-opensans td, .type-opensans li, .type-opensans label {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.07rem; 
+    line-height: 2;
+    font-weight: 300;
+    letter-spacing: 0px;
+    text-transform: none;
+    font-style: normal;
+}
+.type-opensans h1, .type-opensans h2, .type-opensans h3, .type-opensans h4, .type-opensans h5, .type-opensans h6 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0px;
+    line-height: 1.4;
+    text-transform: none;
+    font-style: normal;
+}        
+
+.type-opensans h1 {font-size: 2.36rem;margin:0.4rem 0;}
+.type-opensans h2 {font-size: 2rem;margin:0.6rem 0;}
+.type-opensans h3 {font-size: 1.73rem;margin:0.7rem 0;}
+.type-opensans h4 {font-size: 1.6rem;margin:0.8rem 0;}
+.type-opensans h5 {font-size: 1.48rem;margin:0.8rem 0;}
+.type-opensans h6 {font-size: 1.3rem;margin:0.8rem 0;}
+.type-opensans p {margin:1rem 0;}  
+
+.type-opensans .display { margin-bottom: 0.5rem; }
+.type-opensans .display h1 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 3rem;
+    letter-spacing: 0px;
+    line-height:1.4;
+    text-transform: none;
+    font-style: normal;
+}
+.type-opensans .display p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.4rem;
+    line-height: 2;
+    font-style: normal;
+    letter-spacing: 0px;
+    text-transform: none;
+}
+
+@media all and (max-width: 1024px) {
+    .type-opensans h1 {font-size: 2rem;}
+    .type-opensans h2 {font-size: 1.73rem;}
+    .type-opensans h3 {font-size: 1.6rem;}
+    .type-opensans h4 {font-size: 1.48rem;}
+    .type-opensans h5 {font-size: 1.3rem;font-weight:bold;}
+    .type-opensans h6 {font-size: 1rem;font-weight:bold;}
+    .type-opensans .display h1 { font-size: 2.2rem; }
+    .type-opensans .display p { font-size: 1.1rem; }
+}
+
+.type-opensans .display-font1 {font-family: 'Open Sans', sans-serif;}
+.type-opensans .display-font2 {font-family: 'Open Sans', sans-serif;}
+.type-opensans .default-font1 {font-family: 'Open Sans', sans-serif;}
+.type-opensans .default-font2 {font-family: 'Open Sans', sans-serif;}
