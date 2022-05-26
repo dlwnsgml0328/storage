@@ -15,18 +15,23 @@ export default class Edit extends Component {
   componentDidUpdate() {
     console.log('componentDidUpdate');
   }
-
-  onSave(html, mainCss, sectionCss) {}
-
+  // 저장하기
+  onSave(html, mainCss, sectionCss) {
+    console.log('auto save !');
+  }
+  // 저장하고 종료하기
   onSaveAndFinish(html, mainCss, sectionCss) {
     this.props.navigate({ pathname: './' });
+    console.log('html: ', html);
+    console.log('mainCss: ', mainCss);
+    console.log('sectionCss: ', sectionCss);
   }
-
+  // 종료하기
   closeBuilder = () => {
     const answer = window.confirm('Do you really want to leave?');
     if (!answer) return false;
 
-    this.props.navigate({ pathname: './' });
+    alert('bye bye!');
   };
 
   render() {
