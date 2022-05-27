@@ -3,7 +3,8 @@ import ContentBox from '@dlwnsgml0328/studio_v2/package/public/contentbox/conten
 
 import './contentbox.css';
 import './contentbuilder.css';
-import { addExternalScripts, addExternalStyles } from '../../pages/util';
+// import '../../../public/box/box-flex.css'; 알다시피 import 구조로는 src 디렉토리 외부의 리소스를 받아오지 못한다
+import { addExternalScripts, addExternalStyles } from '../../utils';
 
 class BuilderControl extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class BuilderControl extends Component {
   }
 
   componentDidMount() {
+    console.log('props: ', this.props);
     addExternalStyles([
       '/assets/minimalist-blocks/content.css',
       '/box/box-flex.css',
@@ -183,9 +185,8 @@ class BuilderControl extends Component {
       .then((response) => {
         // console.log(response)
         if (callback) {
-          console.log('upload file callback: ', callback);
-          console.log('upload file response: ', response);
-          console.log('upload file callback(response): ', callback(response));
+          console.log('upload file callback', callback);
+          console.log('upload file response', response);
           callback(response);
         }
       });

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BuilderControl from '../components/contentbox/buildercontrol';
+import BuilderControl from '../components/contentbox/Buildercontrol';
 
 export default class Edit extends Component {
   constructor(props) {
@@ -21,10 +21,15 @@ export default class Edit extends Component {
   }
   // 저장하고 종료하기
   onSaveAndFinish(html, mainCss, sectionCss) {
-    this.props.navigate({ pathname: './' });
-    console.log('html: ', html);
-    console.log('mainCss: ', mainCss);
-    console.log('sectionCss: ', sectionCss);
+    const result = window.confirm('정말 저장하고 종료하시겠습니까?');
+    if (!result) {
+      return;
+    } else {
+      this.props.navigate({ pathname: './' });
+      console.log('html: ', html);
+      console.log('mainCss: ', mainCss);
+      console.log('sectionCss: ', sectionCss);
+    }
   }
   // 종료하기
   closeBuilder = () => {
