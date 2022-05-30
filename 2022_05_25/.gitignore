@@ -24,3 +24,5 @@ yarn-error.log*
 
 # non public uploads folder
 /uploads
+
+yarn.lock
