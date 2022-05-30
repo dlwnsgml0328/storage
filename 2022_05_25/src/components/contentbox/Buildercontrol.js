@@ -116,6 +116,48 @@ class BuilderControl extends Component {
         },
       });
 
+      this.obj.addButton({
+        pos: 6, // button position
+        title: 'Scroll Up button', // title
+        html: '<div><span>▵</span></div>', // icon
+        onClick: () => {
+          if (document.querySelector('.upper_btn') === null) {
+            console.log('make upper button');
+
+            const wrapper = document.querySelector('.is-wrapper');
+
+            const upperBtn = document.createElement('div');
+            upperBtn.className = 'is-section upper_btn';
+            upperBtn.style = 'background: transparent; height: 1px; min-height: 0;';
+            upperBtn.innerHTML = `  <div style="position: fixed; bottom: 50px; right: 50px" >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 50 50"
+              style="width: 24px; height: 24px; cursor: pointer"
+              onclick="window.scrollTo(0,0);"
+            >
+              <polyline
+                points="2.5 36.25 25 13.75 47.5 36.25"
+                fill="none"
+                stroke="#000"
+                stroke-width="1.5"
+                stroke-miterlimit="10"
+              ></polyline>
+              <rect width="50" height="50" fill="none"></rect>
+            </svg>
+          </div>`;
+
+            wrapper.appendChild(upperBtn);
+          } else {
+            console.log('already exists');
+
+            const wrapper = document.querySelector('.is-wrapper');
+
+            wrapper.removeChild(document.querySelector('.upper_btn'));
+          }
+        },
+      });
+
       // Load content from server
       fetch('/load')
         .then((response) => response.json())
