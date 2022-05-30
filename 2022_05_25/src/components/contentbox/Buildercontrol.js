@@ -15,7 +15,7 @@ class BuilderControl extends Component {
   }
 
   componentDidMount() {
-    console.log('props: ', this.props);
+    console.log('this.props: ', this.props);
     addExternalStyles([
       '/assets/minimalist-blocks/content.css',
       '/box/box-flex.css',
@@ -39,7 +39,7 @@ class BuilderControl extends Component {
 
         onUploadCoverImage: (e) => {
           this.uploadFile(e, (response) => {
-            console.log('onUploadCoverImage response:', response);
+            // console.log('onUploadCoverImage response:', response);
             const uploadedImageUrl = response.url; // get saved image url
             this.obj.boxImage(uploadedImageUrl); // change cover image
           });
@@ -122,14 +122,14 @@ class BuilderControl extends Component {
         html: '<div><span>▵</span></div>', // icon
         onClick: () => {
           if (document.querySelector('.upper_btn') === null) {
-            console.log('make upper button');
+            console.log('버튼이 없으므로 만듭니다');
 
             const wrapper = document.querySelector('.is-wrapper');
 
             const upperBtn = document.createElement('div');
             upperBtn.className = 'is-section upper_btn';
             upperBtn.style = 'background: transparent; height: 1px; min-height: 0;';
-            upperBtn.innerHTML = `  <div style="position: fixed; bottom: 50px; right: 50px" >
+            upperBtn.innerHTML = `  <div style="position: fixed; bottom: 50px; right: 50px; z-index:9999;" >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 50 50"
@@ -149,7 +149,7 @@ class BuilderControl extends Component {
 
             wrapper.appendChild(upperBtn);
           } else {
-            console.log('already exists');
+            console.log('버튼이 있으므로 제거합니다');
 
             const wrapper = document.querySelector('.is-wrapper');
 
@@ -190,7 +190,6 @@ class BuilderControl extends Component {
 
   loadLanguageFile = (languageFile, callback) => {
     if (!this.isScriptAlreadyIncluded(languageFile)) {
-      console.log('loadLanguageFile!');
       const script = document.createElement('script');
       script.src = languageFile;
       script.async = true;
@@ -206,7 +205,6 @@ class BuilderControl extends Component {
   isScriptAlreadyIncluded = (src) => {
     const scripts = document.getElementsByTagName('script');
     for (let i = 0; i < scripts.length; i++) {
-      console.log('scirpts[', i, ']', scripts[i]);
       if (scripts[i].getAttribute('src') === src) return true;
     }
     return false;
@@ -214,7 +212,7 @@ class BuilderControl extends Component {
 
   // upload 폴더에 없는 새로운 파일을 업로드할 때
   uploadFile(e, callback) {
-    console.log('uploadFile!');
+    // console.log('uploadFile!');
     const selectedFile = e.target.files[0];
 
     const formData = new FormData();
@@ -227,8 +225,8 @@ class BuilderControl extends Component {
       .then((response) => {
         // console.log(response)
         if (callback) {
-          console.log('upload file callback', callback);
-          console.log('upload file response', response);
+          // console.log('upload file callback', callback);
+          // console.log('upload file response', response);
           callback(response);
         }
       });

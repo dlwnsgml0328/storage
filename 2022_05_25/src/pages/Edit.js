@@ -8,17 +8,8 @@ export default class Edit extends Component {
     this.onSaveAndFinish = this.onSaveAndFinish.bind(this);
   }
 
-  componentDidMount() {
-    console.log('componentDidMount');
-  }
-
-  componentDidUpdate() {
-    console.log('componentDidUpdate');
-  }
   // 저장하기
-  onSave(html, mainCss, sectionCss) {
-    console.log('auto save !');
-  }
+  onSave(html, mainCss, sectionCss) {}
   // 저장하고 종료하기
   onSaveAndFinish(html, mainCss, sectionCss) {
     const result = window.confirm('정말 저장하고 종료하시겠습니까?');
