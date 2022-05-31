@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
 import Counter from './components/Counter';
+import Pokemon from './components/Pokemon';
 
 export default function App() {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -42,6 +43,10 @@ export default function App() {
       <hr />
 
       <Counter />
+
+      <hr />
+
+      <Pokemon />
     </div>
   );
 }
