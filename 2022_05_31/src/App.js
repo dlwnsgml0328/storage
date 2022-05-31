@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Select from 'react-select';
 
-function App() {
+export default function App() {
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [options] = useState([
+    {
+      label: 'all',
+      value: '',
+    },
+    {
+      label: 'admin only',
+      value: 'drafting',
+    },
+    {
+      label: 'public (page X)',
+      value: 'as_data',
+    },
+    {
+      label: 'private',
+      value: 'restricted',
+    },
+    {
+      label: 'public',
+      value: 'published',
+    },
+  ]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <div style={{ width: '20%', margin: '0 auto' }}>
+        <Select
+          defaultValue={selectedOption}
+          onChange={setSelectedOption}
+          placeholder='Select the status'
+          isSearchable={false}
+          options={options}
+        />
+      </div>
     </div>
   );
 }
-
-export default App;
