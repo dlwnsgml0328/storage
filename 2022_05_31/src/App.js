@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
+import Counter from './components/Counter';
 
 export default function App() {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -37,6 +38,10 @@ export default function App() {
           options={options}
         />
       </div>
+
+      <hr />
+
+      <Counter />
     </div>
   );
 }
