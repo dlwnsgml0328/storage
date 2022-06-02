@@ -29,6 +29,16 @@ const Counter = () => {
       </div>
 
       <div>
+        <button
+          onClick={() => {
+            throw new Error('Error in counter');
+          }}
+        >
+          make Error
+        </button>
+      </div>
+
+      <div>
         <br />
 
         <input type='number' value={value} onChange={(e) => setValue(e.target.value)} />

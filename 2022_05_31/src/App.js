@@ -1,52 +1,31 @@
-import React, { useState } from 'react';
-import Select from 'react-select';
 import Counter from './components/Counter';
 import Pokemon from './components/Pokemon';
+import { ErrorBoundary } from 'react-error-boundary';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Header from './components/Header';
+import Selection from './components/Selection';
+
+function ErrorHandler({ error }) {
+  return (
+    <div>
+      <p>An error occured:</p>
+      <pre>{error.message}</pre>
+    </div>
+  );
+}
 
 export default function App() {
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [options] = useState([
-    {
-      label: 'all',
-      value: '',
-    },
-    {
-      label: 'admin only',
-      value: 'drafting',
-    },
-    {
-      label: 'public (page X)',
-      value: 'as_data',
-    },
-    {
-      label: 'private',
-      value: 'restricted',
-    },
-    {
-      label: 'public',
-      value: 'published',
-    },
-  ]);
-
   return (
-    <div className='App'>
-      <div style={{ width: '20%', margin: '0 auto' }}>
-        <Select
-          defaultValue={selectedOption}
-          onChange={setSelectedOption}
-          placeholder='Select the status'
-          isSearchable={false}
-          options={options}
-        />
-      </div>
+    <ErrorBoundary FallbackComponent={ErrorHandler}>
+      <BrowserRouter className='App'>
+        <Header />
 
-      <hr />
-
-      <Counter />
-
-      <hr />
-
-      <Pokemon />
-    </div>
+        <Routes>
+          <Route path='/' exact element={<Counter />} />
+          <Route path='/selection' element={<Selection />} />
+          <Route path='/poke' element={<Pokemon />} />
+        </Routes>
+      </BrowserRouter>
+    </ErrorBoundary>
   );
 }
