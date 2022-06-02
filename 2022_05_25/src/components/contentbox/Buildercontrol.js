@@ -158,6 +158,45 @@ class BuilderControl extends Component {
         },
       });
 
+      this.obj.addButton({
+        pos: 7,
+        title: 'Insert Webvr',
+        html: '<div><span>📷</span></div>',
+        onClick: () => {
+          const code = window.prompt(
+            'vr 코드를 입력하세요 \nex) show_vr/3c391ed6677a? \ncode: 3c391ed6677a '
+          );
+
+          const wrapper = document.querySelector('.is-wrapper');
+
+          const webvr = document.createElement('div');
+          webvr.className = 'is-section is-section-100 is-box';
+          webvr.innerHTML = `
+          <div class="is-overlay"></div>
+          <div class="is-boxes">
+              <div class="is-box-centered">
+                  <div class="is-container container is-content-1500">
+                      <div class="row clearfix">
+                          <div class="column full">
+                              <div class="embed-responsive embed-responsive-16by9">
+                                  <iframe width="100%" height="100%" src="https://eazel.net/show_vr/${code}?fullscreen=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+            `;
+
+          wrapper.appendChild(webvr);
+          /**
+           * 1. 뒤로가기 - 되돌리기
+           * 2. HTML - 확인 누르기
+           * 3. SECTIONS - BASIC - 템플릿으로 만들기
+           */
+        },
+      });
+
       // Load content from server
       fetch('/load')
         .then((response) => response.json())

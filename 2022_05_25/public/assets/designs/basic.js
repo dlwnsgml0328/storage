@@ -660,6 +660,32 @@ var data_basic = {
               `,
     },
 
+    {
+      thumbnail: 'preview/basic-15.png',
+      category: '1',
+      googleFonts: [],
+      contentCss: 'type-opensans.css',
+      contentClass: 'type-opensans',
+      html: `
+        <div class="is-section is-section-100 is-box" style="background-color: rgb(248, 248, 248);">
+            <div class="is-overlay" style="background-color: rgb(233, 247, 234);"></div>
+            <div class="is-boxes">
+                <div class="is-box-centered">
+                    <div class="is-container container is-content-1500">
+                        <div class="row clearfix">
+                            <div class="column full">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe width="100%" height="100%" src="https://eazel.net/show_vr/d12892c66983?fullscreen=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                `,
+    },
+
     /* GLIDE SLIDER */
     {
       thumbnail: 'preview/slider-01.png',
