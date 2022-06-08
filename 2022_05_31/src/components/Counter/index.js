@@ -31,7 +31,7 @@ const Counter = () => {
       <div>
         <button
           onClick={() => {
-            throw new Error('Error in counter');
+            throw new Error('💥 CABOOM in your Counter components💥');
           }}
         >
           make Error
